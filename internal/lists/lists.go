@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"adventOfCode/internal/memoize"
 )
 
 func CreateLists(filename string) [][]int {
@@ -60,9 +62,10 @@ func CountNumberInList(number int, list []int) int {
 }
 
 func FindSimilarity(listA, listB []int) int {
+	momoizedCount := memoize.Memoize(CountNumberInList)
 	similarity := 0
 	for i := 0; i < len(listA); i++ {
-		count := CountNumberInList(listA[i], listB)
+		count := momoizedCount.Call(listA[i], listB)
 		similarity += count * listA[i]
 	}
 	return similarity
