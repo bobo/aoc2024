@@ -73,3 +73,122 @@ func TestFindSimilarity(t *testing.T) {
 		}
 	}
 }
+
+func TestReadReportsFromFile(t *testing.T) {
+	got := ReadReportsFromFile("testdata/day2.txt")
+	want := [][]string{{"7", "6", "4", "2", "1"}, {"1", "2", "7", "8", "9"}, {"9", "7", "6", "2", "1"}, {"1", "3", "2", "4", "5"}, {"8", "6", "4", "4", "1"}, {"1", "3", "6", "7", "9"}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestStringListToNumbers(t *testing.T) {
+	got := StringListToNumbers([]string{"7", "6", "4", "2", "1"})
+	want := []int{7, 6, 4, 2, 1}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestAllIncreasing(t *testing.T) {
+	got := AllIncreasing([]int{1, 2, 3, 4, 5})
+	want := true
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestAllDecreasing(t *testing.T) {
+	got := AllDecreasing([]int{5, 4, 3, 2, 1})
+	want := true
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestDifferesByOneOrTwo(t *testing.T) {
+	tt := []struct {
+		list []int
+		want bool
+	}{
+		{[]int{1, 2, 3, 4, 5}, true},
+		{[]int{1, 2, 4, 7}, true},
+		{[]int{1, 2, 3, 7}, false},
+		{[]int{1, 2, 3, 3, 4}, false},
+	}
+	for _, tc := range tt {
+		got := DifferesByOneToThree(tc.list)
+		if got != tc.want {
+			t.Errorf("got %v, want %v", got, tc.want)
+		}
+	}
+}
+
+func TestGetPossibleLists(t *testing.T) {
+	got := GetPossibleLists([]int{1, 2, 3, 4, 5})
+	want := [][]int{{1, 2, 3, 4, 5}, {2, 3, 4, 5}, {1, 3, 4, 5}, {1, 2, 4, 5}, {1, 2, 3, 5}, {1, 2, 3, 4}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+}
+
+func TestRemoveItemOnIndex(t *testing.T) {
+	tt := []struct {
+		list  []int
+		index int
+		want  []int
+	}{
+		{[]int{1, 2, 3, 4, 5}, 0, []int{2, 3, 4, 5}},
+		{[]int{1, 2, 3, 4, 5}, 1, []int{1, 3, 4, 5}},
+		{[]int{1, 2, 3, 4, 5}, 2, []int{1, 2, 4, 5}},
+		{[]int{1, 2, 3, 4, 5}, 3, []int{1, 2, 3, 5}},
+		{[]int{1, 2, 3, 4, 5}, 4, []int{1, 2, 3, 4}},
+	}
+	for _, tc := range tt {
+		got := RemoveItemOnIndex(tc.list, tc.index)
+		if !reflect.DeepEqual(got, tc.want) {
+			t.Errorf("got %v, want %v", got, tc.want)
+		}
+	}
+}
+
+func TestIsSafeReport(t *testing.T) {
+	tt := []struct {
+		report []int
+		want   bool
+	}{
+		{[]int{1, 2, 3, 4, 5}, true},
+		{[]int{7, 6, 4, 2, 1}, true},
+		{[]int{1, 2, 7, 8, 9}, false},
+		{[]int{9, 7, 6, 2, 1}, false},
+		{[]int{1, 3, 2, 4, 5}, false},
+		{[]int{1, 3, 6, 7, 9}, true},
+	}
+	for _, tc := range tt {
+		got := IsSafeReport(tc.report)
+		if got != tc.want {
+			t.Errorf("got %v, want %v for report %v", got, tc.want, tc.report)
+		}
+	}
+}
+
+func TestIsSafeReportIfRemoveOne(t *testing.T) {
+	tt := []struct {
+		report []int
+		want   bool
+	}{
+		{[]int{1, 2, 3, 4, 5}, true},
+		{[]int{7, 6, 4, 2, 1}, true},
+		{[]int{1, 2, 7, 8, 9}, false},
+		{[]int{9, 7, 6, 2, 1}, false},
+		{[]int{1, 3, 2, 4, 5}, true},
+		{[]int{1, 3, 6, 7, 9}, true},
+		{[]int{8, 6, 4, 4, 1}, true},
+	}
+	for _, tc := range tt {
+		got := IsSafeReportIfRemoveOne(tc.report)
+		if got != tc.want {
+			t.Errorf("got %v, want %v for report %v", got, tc.want, tc.report)
+		}
+	}
+}
