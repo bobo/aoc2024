@@ -1,21 +1,21 @@
-package main
+package day1
 
 import (
 	"adventOfCode/internal/lists"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	// Your code for the day's problem goes here
 
 	//part 1
-	sortedLists := lists.SortLists(lists.CreateLists("data.txt"))
+	sortedLists := lists.SortLists(lists.CreateLists("day1/data.txt"))
 	sums := lists.SumList(lists.ToDistances(sortedLists[0], sortedLists[1]))
-	fmt.Println(sums)
+	fmt.Println("part1", sums)
 
 	//part 2
-	similarity := Step2("data.txt")
-	fmt.Println(similarity)
+	similarity := Step2("day1/data.txt")
+	fmt.Println("part2", similarity)
 }
 
 func Step2(filename string) int {

@@ -1,13 +1,13 @@
-package main
+package day2
 
 import (
 	"adventOfCode/internal/lists"
 	"fmt"
 )
 
-func main() {
-	Part1("data.txt")
-	Part2("data.txt")
+func Run() {
+	Part1("day2/data.txt")
+	Part2("day2/data.txt")
 }
 
 func Part1(filename string) int {
@@ -17,7 +17,6 @@ func Part1(filename string) int {
 		numbers := lists.StringListToNumbers(report)
 		if lists.IsSafeReport(numbers) {
 			safeReports++
-			fmt.Println(report)
 		}
 	}
 	fmt.Println("part1", safeReports)

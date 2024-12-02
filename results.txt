@@ -1,0 +1,5 @@
+
+
+
+
+adventOfCode/day1.Run: 1.455667msadventOfCode/day2.Run: 1.039542msadventOfCode/day1.Run: 1.986083msadventOfCode/day2.Run: 1.948333ms
